@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_categories_to_selectDiff"
             app:destination="@id/selectDiff" />
+        <argument
+            android:name="categories"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/selectDiff"
@@ -18,6 +21,9 @@
         <action
             android:id="@+id/action_selectDiff_to_questions"
             app:destination="@id/questions" />
+        <argument
+            android:name="cate"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/questions"
@@ -26,5 +32,11 @@
         <action
             android:id="@+id/action_questions_to_categories"
             app:destination="@id/categories" />
+        <argument
+            android:name="categories"
+            app:argType="string" />
+        <argument
+            android:name="diff"
+            app:argType="string" />
     </fragment>
 </navigation>

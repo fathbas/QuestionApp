@@ -22,15 +22,10 @@ class Categories : Fragment() {
 
         cateList = HashMap()
         cateList["General Knowledge"] = "9"
-        cateList["Sports"] = "21"
-        cateList["Celebrities"] = "26"
         cateList["Books"] = "10"
         cateList["Film"] = "11"
         cateList["Music"] = "12"
         cateList["Video Games"] = "15"
-        cateList["Animals"] = "27"
-        cateList["Art"] = "25"
-        cateList["Board Games"] = "16"
     }
 
     override fun onCreateView(

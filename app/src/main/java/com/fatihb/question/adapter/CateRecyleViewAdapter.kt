@@ -1,9 +1,11 @@
 package com.fatihb.question.adapter
 
 import android.graphics.Color
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.fatihb.question.view.CategoriesDirections
@@ -39,7 +41,7 @@ class cateRecyleViewAdapter(private val list: HashMap<String,String>): RecyclerV
         holder.bind(list.keys.elementAt(position),position,colorList)
 
         holder.itemView.setOnClickListener {
-            val action = CategoriesDirections.actionCategoriesToSelectDiff()
+            val action = CategoriesDirections.actionCategoriesToSelectDiff(list[list.keys.elementAt(position)].toString())
             Navigation.findNavController(it).navigate(action)
         }
     }

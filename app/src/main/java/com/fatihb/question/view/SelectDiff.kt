@@ -23,20 +23,24 @@ class SelectDiff : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var cate = ""
+        arguments?.let {
+             cate = SelectDiffArgs.fromBundle(it).cate
+        }
         easyBut.setOnClickListener {
-            navDirection(it)
+            navDirection(it,cate, easyBut.text.toString())
         }
         mediumBut.setOnClickListener {
-            navDirection(it)
+            navDirection(it,cate, mediumBut.text.toString())
         }
         hardBut.setOnClickListener {
-            navDirection(it)
+            navDirection(it,cate, hardBut.text.toString())
         }
     }
 
 
-    fun navDirection(view: View){
-        val action = SelectDiffDirections.actionSelectDiffToQuestions()
+    fun navDirection(view: View,category: String, diff: String){
+        val action = SelectDiffDirections.actionSelectDiffToQuestions(category,diff)
         Navigation.findNavController(view).navigate(action)
 
     }

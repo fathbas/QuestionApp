@@ -17,14 +17,15 @@ class questionViewModel: ViewModel() {
 
     val questionList = MutableLiveData<List<Quest>>()
 
-    fun refreshData(){
-        getDataFromApi()
+    fun refreshData(category: String, diff: String){
+        getDataFromApi(category,diff)
     }
 
-    private fun getDataFromApi(){
+    private fun getDataFromApi(category: String, diff: String){
         compositeDisposable.add(
-            questApiService.getData()
-                .subscribeOn(Schedulers.newThread())
+            questApiService
+                .getData(category,diff)
+                !!.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<Result>(){
                     override fun onSuccess(t: Result) {
