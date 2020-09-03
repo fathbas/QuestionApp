@@ -1,11 +1,14 @@
 package com.fatihb.question.view
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.fatihb.question.model.Quest
 import com.fatihb.question.viewmodel.questionViewModel
 import com.fatihb.questionapp.R
@@ -38,8 +41,20 @@ class Questions : Fragment() {
         observeLiveData()
     }
 
+
     override fun onResume() {
         super.onResume()
+
+        val handler = Handler()
+
+        handler.postDelayed(Runnable {
+            loadingData.visibility = View.GONE
+            timer.visibility = View.VISIBLE
+            ques.visibility = View.VISIBLE
+            ans1.visibility = View.VISIBLE
+            ans2.visibility = View.VISIBLE
+            ans3.visibility = View.VISIBLE
+            ans4.visibility = View.VISIBLE
             var i = 0
             var correctScore = 0
             ques.text = questionList[0].question
@@ -54,6 +69,10 @@ class Questions : Fragment() {
                 }else{
                     i+=1
                 }
+                if (i == questionList.size - 1){
+                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    Navigation.findNavController(it).navigate(action)
+                }
                 ques.text = questionList[i].question
                 ans4.text = questionList[i].incorrect_answers!![0]
                 ans3.text = questionList[i].incorrect_answers!![1]
@@ -66,6 +85,10 @@ class Questions : Fragment() {
                     i+=1
                 }else{
                     i+=1
+                }
+                if (i == questionList.size - 1){
+                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    Navigation.findNavController(it).navigate(action)
                 }
                 ques.text = questionList[i].question
                 ans4.text = questionList[i].incorrect_answers!![0]
@@ -80,6 +103,10 @@ class Questions : Fragment() {
                 }else{
                     i+=1
                 }
+                if (i == questionList.size -  1){
+                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    Navigation.findNavController(it).navigate(action)
+                }
                 ques.text = questionList[i].question
                 ans4.text = questionList[i].incorrect_answers!![0]
                 ans3.text = questionList[i].incorrect_answers!![1]
@@ -92,12 +119,18 @@ class Questions : Fragment() {
                 }else{
                     i+=1
                 }
+                if (i == questionList.size - 1){
+                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    Navigation.findNavController(it).navigate(action)
+                }
                 ques.text = questionList[i].question
                 ans4.text = questionList[i].incorrect_answers!![0]
                 ans3.text = questionList[i].incorrect_answers!![1]
                 ans2.text = questionList[i].incorrect_answers!![2]
                 ans1.text = questionList[i].correct_answer
-        }
+            }
+        },2000)
+
     }
 
 
@@ -105,8 +138,6 @@ class Questions : Fragment() {
         viewModel.questionList.observe(viewLifecycleOwner, { questions ->
             questions?.let {
                 questionList = it
-                println(questionList.size)
-                println(it.size)
             }
         })
     }

@@ -20,7 +20,8 @@
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/ques"
@@ -35,12 +36,13 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.289" />
+            app:layout_constraintVertical_bias="0.289"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/ans1"
             android:layout_width="125dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="172dp"
@@ -49,24 +51,26 @@
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ans2"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"/>
 
 
         <Button
             android:id="@+id/ans2"
             android:layout_width="125dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:background="#E35124"
             android:text=""
             android:textColor="#000000"
             app:layout_constraintBaseline_toBaselineOf="@+id/ans1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ans1" />
+            app:layout_constraintStart_toEndOf="@+id/ans1"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/ans3"
             android:layout_width="125dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="12dp"
             android:background="#E35124"
@@ -75,19 +79,30 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ans4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ans1" />
+            app:layout_constraintTop_toBottomOf="@+id/ans1"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/ans4"
             android:layout_width="125dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:background="#E35124"
             android:text=""
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ans3"
-            app:layout_constraintTop_toBottomOf="@+id/ans2" />
+            app:layout_constraintTop_toBottomOf="@+id/ans2"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/loadingData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
