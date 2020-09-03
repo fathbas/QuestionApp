@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/question_nav"
+    app:startDestination="@id/categories">
+
+    <fragment
+        android:id="@+id/categories"
+        android:name="com.fatihb.question.view.Categories"
+        android:label="Categories" >
+        <action
+            android:id="@+id/action_categories_to_selectDiff"
+            app:destination="@id/selectDiff" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectDiff"
+        android:name="com.fatihb.question.view.SelectDiff"
+        android:label="SelectDiff" >
+        <action
+            android:id="@+id/action_selectDiff_to_questions"
+            app:destination="@id/questions" />
+    </fragment>
+    <fragment
+        android:id="@+id/questions"
+        android:name="com.fatihb.question.view.Questions"
+        android:label="Questions" >
+        <action
+            android:id="@+id/action_questions_to_categories"
+            app:destination="@id/categories" />
+    </fragment>
+</navigation>

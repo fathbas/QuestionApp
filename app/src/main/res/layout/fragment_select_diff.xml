@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#000000"
+        android:gravity="center"
+        tools:context=".SelectDiff">
+
+        <Button
+            android:id="@+id/easyBut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="easy"
+            android:background="#F36E0C"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginVertical="15dp"/>
+
+        <Button
+            android:id="@+id/mediumBut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="medium"
+            android:background="#B7703C"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginVertical="15dp"/>
+
+        <Button
+            android:id="@+id/hardBut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hard"
+            android:background="#6D523F"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginVertical="15dp"/>
+    </LinearLayout>
+</layout>
