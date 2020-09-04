@@ -42,6 +42,5 @@ class SelectDiff : Fragment() {
     fun navDirection(view: View,category: String, diff: String){
         val action = SelectDiffDirections.actionSelectDiffToQuestions(category,diff)
         Navigation.findNavController(view).navigate(action)
-
     }
 }

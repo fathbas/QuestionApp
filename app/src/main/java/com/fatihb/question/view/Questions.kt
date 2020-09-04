@@ -1,12 +1,14 @@
 package com.fatihb.question.view
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import android.widget.Button
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.fatihb.question.model.Quest
@@ -39,12 +41,6 @@ class Questions : Fragment() {
         viewModel = ViewModelProviders.of(this).get(questionViewModel::class.java)
         viewModel.refreshData(category,diff)
         observeLiveData()
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-
         val handler = Handler()
 
         handler.postDelayed(Runnable {
@@ -57,11 +53,16 @@ class Questions : Fragment() {
             ans4.visibility = View.VISIBLE
             var i = 0
             var correctScore = 0
-            ques.text = questionList[0].question
-            ans4.text = questionList[0].incorrect_answers!![0]
-            ans3.text = questionList[0].incorrect_answers!![1]
-            ans2.text = questionList[0].incorrect_answers!![2]
-            ans1.text = questionList[0].correct_answer
+           val time = object : CountDownTimer(60000,1000){
+                override fun onTick(millisUntilFinished: Long) {
+                    timer.text = "Time: " + millisUntilFinished/1000
+                }
+                override fun onFinish() {
+                    val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
+                    Navigation.findNavController(timer).navigate(action)
+                }
+            }.start()
+            showDatas(ans1,ans2,ans3,ans4,ques,i)
             ans1.setOnClickListener {
                 if (ans1.text == questionList[i].correct_answer){
                     correctScore += 1
@@ -70,14 +71,11 @@ class Questions : Fragment() {
                     i+=1
                 }
                 if (i == questionList.size - 1){
-                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    time.cancel()
+                    val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
                     Navigation.findNavController(it).navigate(action)
                 }
-                ques.text = questionList[i].question
-                ans4.text = questionList[i].incorrect_answers!![0]
-                ans3.text = questionList[i].incorrect_answers!![1]
-                ans2.text = questionList[i].incorrect_answers!![2]
-                ans1.text = questionList[i].correct_answer
+                showDatas(ans1,ans2,ans3,ans4,ques,i)
             }
             ans2.setOnClickListener {
                 if (ans2.text == questionList[i].correct_answer){
@@ -87,14 +85,11 @@ class Questions : Fragment() {
                     i+=1
                 }
                 if (i == questionList.size - 1){
-                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    time.cancel()
+                    val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
                     Navigation.findNavController(it).navigate(action)
                 }
-                ques.text = questionList[i].question
-                ans4.text = questionList[i].incorrect_answers!![0]
-                ans3.text = questionList[i].incorrect_answers!![1]
-                ans2.text = questionList[i].incorrect_answers!![2]
-                ans1.text = questionList[i].correct_answer
+                showDatas(ans1,ans2,ans3,ans4,ques,i)
             }
             ans3.setOnClickListener {
                 if (ans2.text == questionList[i].correct_answer){
@@ -104,14 +99,11 @@ class Questions : Fragment() {
                     i+=1
                 }
                 if (i == questionList.size -  1){
-                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    time.cancel()
+                    val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
                     Navigation.findNavController(it).navigate(action)
                 }
-                ques.text = questionList[i].question
-                ans4.text = questionList[i].incorrect_answers!![0]
-                ans3.text = questionList[i].incorrect_answers!![1]
-                ans2.text = questionList[i].incorrect_answers!![2]
-                ans1.text = questionList[i].correct_answer
+                showDatas(ans1,ans2,ans3,ans4,ques,i)
             }
             ans4.setOnClickListener {
                 if (ans2.text == questionList[i].correct_answer){
@@ -120,19 +112,14 @@ class Questions : Fragment() {
                     i+=1
                 }
                 if (i == questionList.size - 1){
-                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    time.cancel()
+                    val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
                     Navigation.findNavController(it).navigate(action)
                 }
-                ques.text = questionList[i].question
-                ans4.text = questionList[i].incorrect_answers!![0]
-                ans3.text = questionList[i].incorrect_answers!![1]
-                ans2.text = questionList[i].incorrect_answers!![2]
-                ans1.text = questionList[i].correct_answer
+                showDatas(ans1,ans2,ans3,ans4,ques,i)
             }
         },2000)
-
     }
-
 
     private fun observeLiveData(){
         viewModel.questionList.observe(viewLifecycleOwner, { questions ->
@@ -140,6 +127,14 @@ class Questions : Fragment() {
                 questionList = it
             }
         })
+    }
+
+    private fun showDatas(ans1: Button,ans2: Button, ans3: Button, ans4: Button, ques: TextView, i: Int){
+        ques.text = questionList[i].question
+        ans4.text = questionList[i].incorrect_answers!![0]
+        ans3.text = questionList[i].incorrect_answers!![1]
+        ans2.text = questionList[i].incorrect_answers!![2]
+        ans1.text = questionList[i].correct_answer
     }
 
 }

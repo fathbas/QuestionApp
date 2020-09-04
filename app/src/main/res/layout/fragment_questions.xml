@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
-            android:text=""
+            android:text="Time:90"
             android:textColor="#FF3D00"
             android:textSize="24sp"
             android:gravity="center"

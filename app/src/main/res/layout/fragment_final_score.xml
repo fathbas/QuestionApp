@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        tools:context="com.fatihb.question.view.FinalScore">
+
+        <TextView
+            android:id="@+id/congMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="177dp"
+            android:layout_marginTop="198dp"
+            android:layout_marginBottom="69dp"
+            android:text=""
+            android:textSize="24sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/score"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="215dp"
+            android:text=""
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="#AA3B18"
+            app:layout_constraintBottom_toTopOf="@+id/goBackCate"
+            app:layout_constraintStart_toStartOf="@+id/congMsg"
+            app:layout_constraintTop_toBottomOf="@+id/congMsg" />
+
+        <Button
+            android:id="@+id/goBackCate"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="63dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginBottom="161dp"
+            android:background="#C8451B"
+            android:text="Categories"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/exit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/score" />
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="54dp"
+            android:background="#981717"
+            android:text="Exit"
+            app:layout_constraintBaseline_toBaselineOf="@+id/goBackCate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/goBackCate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

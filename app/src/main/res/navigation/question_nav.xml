@@ -26,14 +26,28 @@
         android:id="@+id/questions"
         android:name="com.fatihb.question.view.Questions"
         android:label="Questions" >
-        <action
-            android:id="@+id/action_questions_to_categories"
-            app:destination="@id/categories" />
         <argument
             android:name="categories"
             app:argType="string" />
         <argument
             android:name="diff"
             app:argType="string" />
+        <action
+            android:id="@+id/action_questions_to_finalScore"
+            app:destination="@id/finalScore" />
+    </fragment>
+    <fragment
+        android:id="@+id/finalScore"
+        android:name="com.fatihb.question.view.FinalScore"
+        android:label="FinalScore" >
+        <action
+            android:id="@+id/action_finalScore_to_categories"
+            app:destination="@id/categories" />
+        <argument
+            android:name="correctScore"
+            app:argType="integer" />
+        <argument
+            android:name="totalScore"
+            app:argType="integer" />
     </fragment>
 </navigation>
