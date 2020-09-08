@@ -1,5 +1,6 @@
 package com.fatihb.question.view
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -8,7 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.fatihb.question.model.Quest
@@ -20,6 +22,30 @@ class Questions : Fragment() {
 
     private lateinit var viewModel: questionViewModel
     private lateinit var questionList: List<Quest>
+    private lateinit var time: CountDownTimer
+    private lateinit var buttonList: Array<Button>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val builder = AlertDialog.Builder(activity!!)
+                builder.setTitle("Exit")
+                builder.setMessage("Do you want to exit?")
+                builder.setPositiveButton("Quit",DialogInterface.OnClickListener { dialog, which ->
+                    activity?.moveTaskToBack(true)
+                    activity?.finish()
+                })
+                builder.setNegativeButton("Categories",DialogInterface.OnClickListener { dialog, which ->
+                    val action = QuestionsDirections.actionQuestionsToCategories()
+                    Navigation.findNavController(timer).navigate(action)
+                })
+                builder.show()
+            }
+
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +56,9 @@ class Questions : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+        buttonList = arrayOf(ans1,ans2,ans3,ans4)
         var category = ""
         var diff = ""
         arguments?.let {
@@ -53,7 +81,7 @@ class Questions : Fragment() {
             ans4.visibility = View.VISIBLE
             var i = 0
             var correctScore = 0
-           val time = object : CountDownTimer(60000,1000){
+            time = object : CountDownTimer(60000,1000){
                 override fun onTick(millisUntilFinished: Long) {
                     timer.text = "Time: " + millisUntilFinished/1000
                 }
@@ -62,7 +90,7 @@ class Questions : Fragment() {
                     Navigation.findNavController(timer).navigate(action)
                 }
             }.start()
-            showDatas(ans1,ans2,ans3,ans4,ques,i)
+            showDatas(i)
             ans1.setOnClickListener {
                 if (ans1.text == questionList[i].correct_answer){
                     correctScore += 1
@@ -70,12 +98,13 @@ class Questions : Fragment() {
                 }else{
                     i+=1
                 }
-                if (i == questionList.size - 1){
-                    time.cancel()
+                if (i == questionList.size){
+                 //   time.cancel()
                     val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
                     Navigation.findNavController(it).navigate(action)
+                }else{
+                    showDatas(i)
                 }
-                showDatas(ans1,ans2,ans3,ans4,ques,i)
             }
             ans2.setOnClickListener {
                 if (ans2.text == questionList[i].correct_answer){
@@ -84,39 +113,43 @@ class Questions : Fragment() {
                 }else{
                     i+=1
                 }
-                if (i == questionList.size - 1){
-                    time.cancel()
+                if (i == questionList.size){
+                  //  time.cancel()
                     val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
                     Navigation.findNavController(it).navigate(action)
+                }else{
+                    showDatas(i)
                 }
-                showDatas(ans1,ans2,ans3,ans4,ques,i)
             }
             ans3.setOnClickListener {
-                if (ans2.text == questionList[i].correct_answer){
+                if (ans3.text == questionList[i].correct_answer){
                     correctScore += 1
                     i+=1
                 }else{
                     i+=1
                 }
-                if (i == questionList.size -  1){
-                    time.cancel()
+                if (i == questionList.size){
+                 //   time.cancel()
                     val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
                     Navigation.findNavController(it).navigate(action)
+                }else{
+                    showDatas(i)
                 }
-                showDatas(ans1,ans2,ans3,ans4,ques,i)
             }
             ans4.setOnClickListener {
-                if (ans2.text == questionList[i].correct_answer){
+                if (ans4.text == questionList[i].correct_answer){
                     correctScore += 1
+                    i+=1
                 }else{
                     i+=1
                 }
-                if (i == questionList.size - 1){
-                    time.cancel()
+                if (i == questionList.size){
+                   // time.cancel()
                     val action = QuestionsDirections.actionQuestionsToFinalScore(correctScore,questionList.size)
                     Navigation.findNavController(it).navigate(action)
+                }else{
+                    showDatas(i)
                 }
-                showDatas(ans1,ans2,ans3,ans4,ques,i)
             }
         },2000)
     }
@@ -129,12 +162,42 @@ class Questions : Fragment() {
         })
     }
 
-    private fun showDatas(ans1: Button,ans2: Button, ans3: Button, ans4: Button, ques: TextView, i: Int){
+    private fun showDatas(i: Int){
+
+        //"&quot;" , "&#039;"
+
+        replaceForData("&#039;",i)
+        replaceForData("&quot;",i)
+
+        val randomNumber = (0..3).shuffled()
+
         ques.text = questionList[i].question
-        ans4.text = questionList[i].incorrect_answers!![0]
-        ans3.text = questionList[i].incorrect_answers!![1]
-        ans2.text = questionList[i].incorrect_answers!![2]
-        ans1.text = questionList[i].correct_answer
+        buttonList[randomNumber[0]].text = questionList[i].incorrect_answers!![0]
+        buttonList[randomNumber[1]].text = questionList[i].incorrect_answers!![1]
+        buttonList[randomNumber[2]].text = questionList[i].incorrect_answers!![2]
+        buttonList[randomNumber[3]].text = questionList[i].correct_answer
     }
 
+    private fun replaceForData(s: String, i: Int){
+        if (questionList[i].question!!.contains(s)){
+            questionList[i].question = questionList[i].question!!.replace(s,"",true)
+        }
+        if (questionList[i].correct_answer!!.contains(s)){
+            questionList[i].correct_answer = questionList[i].correct_answer!!.replace(s,"",true)
+        }
+        if (questionList[i].incorrect_answers!![0].contains(s)){
+            questionList[i].incorrect_answers!![0] = questionList[i].incorrect_answers!![0].replace(s,"",true)
+        }
+        if (questionList[i].incorrect_answers!![1].contains(s)){
+            questionList[i].incorrect_answers!![1] = questionList[i].incorrect_answers!![1].replace(s,"",true)
+        }
+        if (questionList[i].incorrect_answers!![2].contains(s)){
+            questionList[i].incorrect_answers!![2] = questionList[i].incorrect_answers!![2].replace(s,"",true)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        time.cancel()
+    }
 }

@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_questions_to_finalScore"
             app:destination="@id/finalScore" />
+        <action
+            android:id="@+id/action_questions_to_categories"
+            app:destination="@id/categories" />
     </fragment>
     <fragment
         android:id="@+id/finalScore"

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fatihb.question.adapter.cateRecyleViewAdapter
@@ -26,6 +27,13 @@ class Categories : Fragment() {
         cateList["Film"] = "11"
         cateList["Music"] = "12"
         cateList["Video Games"] = "15"
+
+        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                activity?.moveTaskToBack(true)
+                activity?.finish()
+            }
+        })
     }
 
     override fun onCreateView(

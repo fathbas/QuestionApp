@@ -5,12 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.Navigation
 import com.fatihb.questionapp.R
 import kotlinx.android.synthetic.main.fragment_final_score.*
 
 class FinalScore : Fragment() {
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                    activity?.moveTaskToBack(true)
+                    activity?.finish()
+            }
+        })
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,7 +35,11 @@ class FinalScore : Fragment() {
         var totalAnswer = ""
         var success = 0
             arguments?.let {
-            success = FinalScoreArgs.fromBundle(it).totalScore / FinalScoreArgs.fromBundle(it).correctScore
+            if (FinalScoreArgs.fromBundle(it).correctScore == 0){
+                success = 3
+            }else{
+                success = FinalScoreArgs.fromBundle(it).totalScore / FinalScoreArgs.fromBundle(it).correctScore
+            }
             correctAnswer = FinalScoreArgs.fromBundle(it).correctScore.toString()
             totalAnswer = FinalScoreArgs.fromBundle(it).totalScore.toString()
         }
