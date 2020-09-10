@@ -10,11 +10,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class questionViewModel: ViewModel() {
+class QuestionViewModel: ViewModel() {
 
     private val questApiService = QuestApiService()
     private val compositeDisposable = CompositeDisposable()
-
     val questionList = MutableLiveData<List<Quest>>()
 
     fun refreshData(category: String, diff: String){
