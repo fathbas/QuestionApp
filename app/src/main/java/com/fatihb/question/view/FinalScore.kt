@@ -1,5 +1,6 @@
 package com.fatihb.question.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,16 +30,20 @@ class FinalScore : Fragment() {
         return inflater.inflate(R.layout.fragment_final_score, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var correctAnswer = ""
-        var totalAnswer = ""
-        var success = 0
-            arguments?.let {
-            if (FinalScoreArgs.fromBundle(it).correctScore == 0){
-                success = 3
+        var correctAnswer: String
+        correctAnswer = ""
+        var totalAnswer: String
+        totalAnswer = ""
+        var success: Int
+        success = 0
+        arguments?.let {
+            success = if (FinalScoreArgs.fromBundle(it).correctScore == 0){
+                3
             }else{
-                success = FinalScoreArgs.fromBundle(it).totalScore / FinalScoreArgs.fromBundle(it).correctScore
+                FinalScoreArgs.fromBundle(it).totalScore / FinalScoreArgs.fromBundle(it).correctScore
             }
             correctAnswer = FinalScoreArgs.fromBundle(it).correctScore.toString()
             totalAnswer = FinalScoreArgs.fromBundle(it).totalScore.toString()

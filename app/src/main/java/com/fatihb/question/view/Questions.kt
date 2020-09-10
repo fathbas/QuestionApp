@@ -1,9 +1,10 @@
+@file:Suppress("DEPRECATION")
+
 package com.fatihb.question.view
 
-import android.content.DialogInterface
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,14 +34,14 @@ class Questions : Fragment() {
                 val builder = AlertDialog.Builder(activity!!)
                 builder.setTitle("Exit")
                 builder.setMessage("Do you want to exit?")
-                builder.setPositiveButton("Quit",DialogInterface.OnClickListener { dialog, which ->
+                builder.setPositiveButton("Quit") { _, _ ->
                     activity?.moveTaskToBack(true)
                     activity?.finish()
-                })
-                builder.setNegativeButton("Categories",DialogInterface.OnClickListener { dialog, which ->
+                }
+                builder.setNegativeButton("Categories") { _, _ ->
                     val action = QuestionsDirections.actionQuestionsToCategories()
                     Navigation.findNavController(timer).navigate(action)
-                })
+                }
                 builder.show()
             }
 
@@ -123,6 +124,7 @@ class Questions : Fragment() {
         var correctScore = 0
 
         time = object : CountDownTimer(90000,1000){
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 timer.text = "Time: " + millisUntilFinished/1000
             }

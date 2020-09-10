@@ -23,7 +23,7 @@ class QuestionViewModel: ViewModel() {
     private fun getDataFromApi(category: String, diff: String){
         compositeDisposable.add(
             questApiService
-                .getData(category,diff)
+                .getData(category,diff,"multiple")
                 !!.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<Result>(){

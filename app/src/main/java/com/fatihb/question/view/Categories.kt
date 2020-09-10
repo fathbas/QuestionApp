@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fatihb.question.adapter.cateRecyleViewAdapter
+import com.fatihb.question.adapter.CateRecyleViewAdapter
 import com.fatihb.questionapp.R
 import kotlinx.android.synthetic.main.fragment_categories.*
 
@@ -49,7 +49,7 @@ class Categories : Fragment() {
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         listOfCate.layoutManager = layoutManager
-        listOfCate.adapter = cateRecyleViewAdapter(cateList)
+        listOfCate.adapter = CateRecyleViewAdapter(cateList)
 
     }
 }

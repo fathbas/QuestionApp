@@ -1,18 +1,16 @@
 package com.fatihb.question.adapter
 
 import android.graphics.Color
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.fatihb.question.view.CategoriesDirections
 import com.fatihb.questionapp.R
 import kotlinx.android.synthetic.main.cate_row.view.*
 
-class cateRecyleViewAdapter(private val list: HashMap<String,String>): RecyclerView.Adapter<cateRecyleViewAdapter.RowHolder>() {
+class CateRecyleViewAdapter(private val list: HashMap<String,String>): RecyclerView.Adapter<CateRecyleViewAdapter.RowHolder>() {
 
     private val colorList: Array<String> = arrayOf("#F36E0C","#D2722B","#B7703C","#855D40","#6D523F")
     class RowHolder(view: View): RecyclerView.ViewHolder(view) {

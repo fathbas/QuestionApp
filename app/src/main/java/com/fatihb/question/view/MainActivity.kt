@@ -1,8 +1,7 @@
 package com.fatihb.question.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.Navigation
+import androidx.appcompat.app.AppCompatActivity
 import com.fatihb.questionapp.R
 
 class MainActivity : AppCompatActivity() {
