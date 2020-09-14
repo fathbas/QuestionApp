@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 
 data class Quest(
-
     @SerializedName("category")
     val category: String?,
     @SerializedName("type")

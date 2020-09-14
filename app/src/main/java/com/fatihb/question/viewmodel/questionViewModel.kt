@@ -5,37 +5,34 @@ import androidx.lifecycle.ViewModel
 import com.fatihb.question.model.Quest
 import com.fatihb.question.model.Result
 import com.fatihb.question.service.QuestApiService
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import retrofit2.Call
+import retrofit2.Response
 
 class QuestionViewModel: ViewModel() {
 
     private val questApiService = QuestApiService()
-    private val compositeDisposable = CompositeDisposable()
     val questionList = MutableLiveData<List<Quest>>()
 
+
     fun refreshData(category: String, diff: String){
-        getDataFromApi(category,diff)
+            getDataFromApi(category,diff)
     }
 
-    private fun getDataFromApi(category: String, diff: String){
-        compositeDisposable.add(
-            questApiService
-                .getData(category,diff,"multiple")
-                !!.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Result>(){
-                    override fun onSuccess(t: Result) {
-                        questionList.value = t.results
+    private fun getDataFromApi(category: String, diff: String) {
+            val response = questApiService.getData(category, diff)
+
+            response?.enqueue(object : retrofit2.Callback<Result> {
+                override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                    if (response.isSuccessful){
+                        response.body()?.let {
+                            questionList.value = response.body()?.results
+                        }
                     }
-                    override fun onError(e: Throwable) {
-                        e.printStackTrace()
-                    }
-                })
-        )
+                }
+                override fun onFailure(call: Call<Result>, t: Throwable) {
+                }
+            })
     }
-
-
 }
+
+
